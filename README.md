@@ -1,5 +1,12 @@
 # Text Relay by Brad White
 
+> **Moved.** Relay and Texts are now published in **Brad White's apps**, one F-Droid
+> repository for all of Brad's apps: https://bradleyw801.github.io/sidephone-apps/
+> (address `https://bradleyw801.github.io/sidephone-apps/repo`, fingerprint
+> `297A48B6E4BE5C0701771CE758E54D7885C3E342FFC46FE28247FA5038E1DAC6`). Add that one in
+> F-Droid. New builds go in that repository's `fdroid/incoming/`; this repository keeps
+> serving Relay 0.6 and Texts 0.3 and takes no new builds.
+
 An F-Droid repository for **Relay** and **Texts**, served from GitHub Pages. Relay runs on
 the phone that keeps the SIM and Google Messages and forwards every text, RCS included.
 Texts reads and answers them on the phone you carry, with or without Google services.
