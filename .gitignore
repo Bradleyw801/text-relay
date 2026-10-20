@@ -1,0 +1,16 @@
+# never commit the index signing key or generated output
+fdroid/keystore.p12
+fdroid/repo/index*
+fdroid/repo/entry.*
+fdroid/repo/icons-*/
+fdroid/repo/*/en-US/
+fdroid/repo/icons/
+fdroid/repo/index.css
+fdroid/repo/index.html
+fdroid/tmp/
+fdroid/stats/
+fdroid/srclibs/
+fdroid/build/
+_site/
+fdroid/repo/diff/
+fdroid/repo/status/
