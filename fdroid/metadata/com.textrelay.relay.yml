@@ -16,15 +16,20 @@ Description: |
     shows them
   * Nothing is lost while the phone is offline: texts wait on the phone until
     the inbox has them
+  * Sync now sends everything Messages still shows to the inbox again; the
+    inbox keeps one copy of each, so this only fills gaps
+  * Checks in with the inbox every minute, so your other phone can warn you
+    when this one has lost its connection, and ask it to reconnect
+  * A guide for leaving this phone at home: what to check, how to forward
+    calls through your carrier, and how to pair the phone you carry
   * Optional SMS fallback, for replies to a one-to-one conversation when
     Messages has no reply handle open
-  * Checks in with the inbox every minute, so your other phone can warn you
-    when this one goes quiet
+  * A minimal status notification with no status-bar icon, or a standard one
 
   Relay reads Messages' notifications, so it needs notification access, and
   Messages notifications must stay on (they can be silent). Leave the phone on
-  Wi-Fi and a charger. Pair it with your inbox's passphrase, the same one the
-  Texts app uses.
+  Wi-Fi and a charger. Pair it with a one-time code from Texts: scan the QR
+  code with this phone's camera, or type the code.
 
 RequiresRoot: false
 

@@ -25,7 +25,9 @@ Install page: https://bradleyw801.github.io/text-relay/
 | Relay | `com.textrelay.relay` | The relay device: the phone with the SIM and Google Messages, left on Wi-Fi and a charger |
 | Texts | `com.textrelay.texts` | The secondary device: the phone you carry, Google services optional |
 
-Both pair with the inbox's passphrase. Without F-Droid, the current builds are also at
+Each app pairs with a one-time code made in the other (Texts: Settings, Pair the relay device;
+Relay: Pair a phone with Texts). Scan its QR code with the new phone's camera, or type the code.
+A code works once, within 15 minutes. Without F-Droid, the current builds are also at
 https://bradleyw801.github.io/text-relay/relay.apk and
 https://bradleyw801.github.io/text-relay/texts.apk, with their versions in `relay.json`
 and `texts.json` next to them.
@@ -88,4 +90,5 @@ licenses/                         licences of code the apps include
 ## Licences
 
 Relay and Texts are Brad White's own apps and are not open source. Both include
-Java-WebSocket, under the MIT licence in `licenses/Java-WebSocket.txt`.
+Java-WebSocket, under the MIT licence in `licenses/Java-WebSocket.txt`. Relay also includes
+ZXing's QR code library, under the Apache License 2.0 in `licenses/ZXing.txt`.

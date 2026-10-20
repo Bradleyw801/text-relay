@@ -12,15 +12,22 @@ Description: |
   full-size pictures included, and your replies go out from the relay phone's
   number.
 
+  * Laid out like Google Messages: conversations, search, threads with search
+    inside them, and each conversation's photos, files and links
   * A notification for each conversation as texts arrive, with no Google
-    services, push app or browser needed
+    services, push app or browser needed, or a quiet option with no sound or
+    pop-up
   * New texts arrive within seconds over a light connection to the inbox,
     with a check once a minute as a backup
-  * Tells you when the relay phone has gone quiet, and when it is back
+  * Warns you only when the relay phone has actually lost its connection, with
+    a Reconnect button that asks it to come back
+  * Resync reloads every conversation and asks the relay phone to send what it
+    still has
   * Follows the system's light or dark theme
 
-  Install Relay on the phone that keeps the SIM, then pair Texts with the same
-  passphrase.
+  Install Relay on the phone that keeps the SIM, then pair Texts with a
+  one-time code from it: scan the QR code with this phone's camera, or type
+  the code.
 
 RequiresRoot: false
 
