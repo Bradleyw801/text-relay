@@ -1,0 +1,1 @@
+New builds go here, whole or as NAME.apk.part00, .part01, ... The publish workflow joins the pieces, vets each build (pinned signing key, higher version code), moves it into fdroid/repo and removes the old one.
