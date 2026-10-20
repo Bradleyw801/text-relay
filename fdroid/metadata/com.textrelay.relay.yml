@@ -1,0 +1,32 @@
+Categories:
+  - Phone & SMS
+License: Proprietary
+AuthorName: Brad White
+WebSite: https://bradleyw801.github.io/text-relay/
+Name: Relay
+Summary: Forwards every text on this phone, RCS included, to your Text Relay inbox
+Description: |
+  Relay runs on the phone that keeps your SIM and Google Messages. Every text
+  that reaches Messages (SMS, MMS and RCS, one-to-one and group) goes to your
+  Text Relay inbox, where the Texts app on your other phone reads it. Replies
+  written there go back out through Messages from this phone's number, so RCS
+  conversations stay RCS.
+
+  * Names, group chats and full-size pictures come through as Messages
+    shows them
+  * Nothing is lost while the phone is offline: texts wait on the phone until
+    the inbox has them
+  * Optional SMS fallback, for replies to a one-to-one conversation when
+    Messages has no reply handle open
+  * Checks in with the inbox every minute, so your other phone can warn you
+    when this one goes quiet
+
+  Relay reads Messages' notifications, so it needs notification access, and
+  Messages notifications must stay on (they can be silent). Leave the phone on
+  Wi-Fi and a charger. Pair it with your inbox's passphrase, the same one the
+  Texts app uses.
+
+RequiresRoot: false
+
+# Only builds signed with this key are published (SHA-256 of the signing certificate).
+AllowedAPKSigningKeys: 080f127acfce859c1588768c1922eb2cddb325951ef072923159dc4e1477df9a

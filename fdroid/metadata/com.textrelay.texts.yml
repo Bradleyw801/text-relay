@@ -1,0 +1,28 @@
+Categories:
+  - Phone & SMS
+License: Proprietary
+AuthorName: Brad White
+WebSite: https://bradleyw801.github.io/text-relay/
+Name: Texts
+Summary: Read and answer your texts, RCS included, on a phone without Google services
+Description: |
+  Texts is the inbox half of Text Relay. It runs on the phone you carry, which
+  can be any Android phone, including one with no Google services at all. Every
+  conversation the relay phone receives shows up here, group chats and
+  full-size pictures included, and your replies go out from the relay phone's
+  number.
+
+  * A notification for each conversation as texts arrive, with no Google
+    services, push app or browser needed
+  * New texts arrive within seconds over a light connection to the inbox,
+    with a check once a minute as a backup
+  * Tells you when the relay phone has gone quiet, and when it is back
+  * Follows the system's light or dark theme
+
+  Install Relay on the phone that keeps the SIM, then pair Texts with the same
+  passphrase.
+
+RequiresRoot: false
+
+# Only builds signed with this key are published (SHA-256 of the signing certificate).
+AllowedAPKSigningKeys: 080f127acfce859c1588768c1922eb2cddb325951ef072923159dc4e1477df9a
