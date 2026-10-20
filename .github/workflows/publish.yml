@@ -1,0 +1,188 @@
+name: Publish repository
+
+# Vets new APKs, builds the signed F-Droid index and publishes it, with the install page,
+# to GitHub Pages.
+#
+# New builds go into fdroid/incoming/, whole or as NAME.apk.part00, .part01, ...
+# (git push, or GitHub's "Add file, Upload files"). tools/intake.py keeps the newest build
+# of each app signed with the key pinned in its metadata and removes the old one. Anything
+# it refuses (wrong key, not newer, unknown app) is deleted, everything else is still
+# published, and the run then fails so the refusal shows up.
+#
+# The site also carries the current build of each app under a fixed name (relay.apk,
+# texts.apk) with its version in relay.json and texts.json, for direct download links.
+#
+# Secret (Settings, Secrets and variables, Actions):
+#   FDROID_KEYSTORE_PASS  decrypts fdroid/keystore.p12.enc; also the keystore and key password
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "fdroid/**"
+      - "site/**"
+      - "tools/**"
+      - ".github/workflows/publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      refused: ${{ steps.vet.outputs.refused }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install fdroidserver
+        run: |
+          python -m venv "$HOME/fdroid-venv"
+          "$HOME/fdroid-venv/bin/pip" install --quiet --upgrade pip "setuptools<72" wheel
+          "$HOME/fdroid-venv/bin/pip" install --quiet fdroidserver
+          "$HOME/fdroid-venv/bin/fdroid" --version
+
+      - name: Vet new APKs
+        id: vet
+        working-directory: fdroid
+        run: |
+          set -euo pipefail
+          mkdir -p incoming
+          export REFUSED_FILE="$RUNNER_TEMP/refused.txt" SUMMARY_FILE="$RUNNER_TEMP/summary.txt"
+          "$HOME/fdroid-venv/bin/python" ../tools/intake.py
+          {
+            echo "refused<<REFUSED_EOF"
+            cat "$REFUSED_FILE"
+            echo "REFUSED_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Commit the vetted APKs
+        run: |
+          set -euo pipefail
+          git add -A fdroid/repo fdroid/incoming
+          if git diff --cached --quiet; then
+            echo "No APK changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -F "$RUNNER_TEMP/summary.txt"
+          # Another build may have been sent while this ran. Then replay this commit on top of it
+          # (that build gets its own run).
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase FETCH_HEAD
+          done
+          echo "::error::Could not push the vetted APKs to main"
+          exit 1
+
+      - name: Restore the index signing key
+        env:
+          FDROID_KEYSTORE_PASS: ${{ secrets.FDROID_KEYSTORE_PASS }}
+        run: |
+          set -euo pipefail
+          if [ -z "$FDROID_KEYSTORE_PASS" ]; then
+            echo "::error::The FDROID_KEYSTORE_PASS secret is missing (Settings, Secrets and variables, Actions)"
+            exit 1
+          fi
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 600000 -md sha256 \
+            -in fdroid/keystore.p12.enc -out fdroid/keystore.p12 -pass env:FDROID_KEYSTORE_PASS
+
+      - name: Build the signed index
+        working-directory: fdroid
+        env:
+          FDROID_KEYSTORE_PASS: ${{ secrets.FDROID_KEYSTORE_PASS }}
+          FDROID_KEY_PASS: ${{ secrets.FDROID_KEYSTORE_PASS }}
+        run: |
+          set -euo pipefail
+          "$HOME/fdroid-venv/bin/fdroid" update --pretty
+          rm -f keystore.p12
+          "$HOME/fdroid-venv/bin/python" - <<'PY'
+          import json
+          d = json.load(open("repo/index-v2.json"))
+          print("Serving from", d["repo"]["address"])
+          for pkg, p in sorted(d["packages"].items()):
+              v = next(iter(p["versions"].values()))["manifest"]
+              print("  ", pkg, v["versionName"], v["versionCode"])
+          PY
+
+      - name: Assemble the site
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site
+          cp -r site/. _site/
+          cp -r fdroid/repo _site/repo
+          # The current build of each app under a fixed name: com.textrelay.relay -> relay.apk + relay.json
+          python3 - <<'PY'
+          import json, shutil
+          d = json.load(open("fdroid/repo/index-v2.json"))
+          for pkg, p in sorted(d["packages"].items()):
+              v = max(p["versions"].values(), key=lambda v: v["manifest"]["versionCode"])
+              short = pkg.rsplit(".", 1)[-1]
+              shutil.copyfile("fdroid/repo" + v["file"]["name"], "_site/" + short + ".apk")
+              info = {
+                  "app": p["metadata"]["name"].get("en-US", short),
+                  "package": pkg,
+                  "version": v["manifest"]["versionName"],
+                  "versionCode": v["manifest"]["versionCode"],
+                  "sha256": v["file"]["sha256"],
+                  "url": short + ".apk",
+              }
+              with open("_site/" + short + ".json", "w") as f:
+                  json.dump(info, f)
+              print(short + ".apk", "=", info["app"], info["version"])
+          PY
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  report:
+    needs: [build, deploy]
+    if: needs.build.outputs.refused != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report refused APKs
+        env:
+          REFUSED: ${{ needs.build.outputs.refused }}
+        run: |
+          printf '%s\n' "$REFUSED" | while IFS= read -r line; do
+            if [ -n "$line" ]; then echo "::error title=Not published::$line"; fi
+          done
+          exit 1
