@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Text Relay by Brad White</title>
-<meta name="description" content="F-Droid repository for Relay and Texts: every text from one Android phone, RCS included, read and answered on another. Scan the code in F-Droid to add it.">
+<title>Text Relay has moved</title>
+<meta name="description" content="Relay and Texts are now Paigr Relay and Paigr, in Brad White's apps.">
 <link rel="icon" href="repo/icons/icon.png">
 <style>
   :root {
@@ -21,83 +21,16 @@
   .sub { color: var(--muted); margin: 0 0 28px; }
   h2 { font-size: 18px; margin: 32px 0 10px; }
   p { margin: 0 0 12px; }
-  .qr { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 0; }
-  .qr img { width: min(100%, 300px); height: auto; image-rendering: pixelated; }
-  .qr figcaption { color: #444; font-size: 14px; text-align: center; }
-  ol { padding-left: 22px; margin: 0 0 12px; }
-  li { margin-bottom: 6px; }
-  code, .mono { font-family: ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace; font-size: 14px; }
-  .kv { display: grid; grid-template-columns: 110px 1fr; gap: 6px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0; }
-  .kv dt { color: var(--muted); margin: 0; }
-  .kv dd { margin: 0; word-break: break-all; }
-  .apps { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-  .app { display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
-  .app img { width: 56px; height: 56px; border-radius: 14px; }
-  .app strong { font-size: 16px; }
-  .app .v { color: var(--muted); font-size: 13px; }
-  .app .where { display: block; color: var(--ink); font-size: 14px; margin-top: 2px; }
-  .app p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
-  .app .dl { display: inline-block; margin-top: 8px; font-size: 14px; }
   a { color: var(--accent); }
   .note { color: var(--muted); font-size: 14px; }
-  @media (max-width: 420px) { .kv { grid-template-columns: 1fr; } .kv dt { margin-top: 6px; } }
 </style>
 </head>
 <body>
 <main>
-  <p style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 24px"><strong>Relay and Texts have moved</strong> to <a href="https://bradleyw801.github.io/sidephone-apps/">Brad White's apps</a>, one repository for all of Brad's apps. Scan the code there instead; this page stays for phones that already have it.</p>
-  <h1>Text Relay</h1>
-  <p class="sub">Every text that reaches one Android phone, RCS included, read and answered on another, even one without Google services. Scan once; both apps then install and update from F-Droid.</p>
-
-  <figure class="qr">
-    <img src="qr.png" width="636" height="636" alt="QR code that adds the Text Relay repository to F-Droid">
-    <figcaption>Scan with F-Droid, or with any F-Droid client.</figcaption>
-  </figure>
-
-  <h2>Add the repository</h2>
-  <ol>
-    <li>In F-Droid, go to <strong>Settings, Repositories</strong>, tap <strong>+</strong>, then <strong>Scan QR code</strong>. Clients with a QR button on the main screen work the same way.</li>
-    <li>Scan the code above. Adding the repository installs nothing on its own.</li>
-    <li>Search for <strong>Relay</strong> or <strong>Texts</strong> and tap <strong>Install</strong>. Updates arrive the same way.</li>
-  </ol>
-  <p class="note">On the phone itself, where the code can't be scanned: add the address below by hand and paste the fingerprint.</p>
-
-  <h2>Manual address</h2>
-  <dl class="kv">
-    <dt>Address</dt><dd class="mono">https://bradleyw801.github.io/text-relay/repo</dd>
-    <dt>Fingerprint</dt><dd class="mono">9C5C5271C2EF7AA897B9EABC297F79DEBB8DFC533EDBAB1DC2C4C0C794287447</dd>
-  </dl>
-
-  <h2>The two apps</h2>
-  <ul class="apps">
-    <li class="app" data-pkg="com.textrelay.relay">
-      <img src="repo/com.textrelay.relay/en-US/icon.png" alt="">
-      <div><strong>Relay</strong><span class="v"></span>
-      <span class="where">On the phone that keeps your SIM and Google Messages</span>
-      <p>Forwards every text, SMS, MMS and RCS, groups and full-size pictures included, to your Text Relay inbox, and sends your replies back out through Messages from that number. Leave it on Wi-Fi and a charger.</p>
-      <a class="dl" href="relay.apk">Download the APK directly</a></div>
-    </li>
-    <li class="app" data-pkg="com.textrelay.texts">
-      <img src="repo/com.textrelay.texts/en-US/icon.png" alt="">
-      <div><strong>Texts</strong><span class="v"></span>
-      <span class="where">On the phone you carry</span>
-      <p>Reads and answers every conversation, with a notification for each one as texts arrive. Works with no Google services, push app or browser.</p>
-      <a class="dl" href="texts.apk">Download the APK directly</a></div>
-    </li>
-  </ul>
-  <p class="note" style="margin-top:12px">Each app pairs with a one-time code made in the other: in Texts, <strong>Settings, Pair the relay device</strong>; in Relay, <strong>Pair a phone with Texts</strong>. Scan its QR code with the new phone's camera, or type the code. A direct download installs the same build F-Droid serves; Android asks once to allow installs from your browser, and on phones with Google Play, Play Protect may ask you to confirm with <strong>More details, Install anyway</strong>.</p>
-
-  <p class="note" style="margin-top:28px">Published from <a href="https://github.com/Bradleyw801/text-relay">github.com/Bradleyw801/text-relay</a>. Relay and Texts are Brad White's own apps.</p>
+  <h1>Text Relay has moved</h1>
+  <p class="sub">Relay and Texts are now called Paigr Relay and Paigr. You'll find them in <a href="https://bradleyw801.github.io/sidephone-apps/">Brad White's apps</a> with the rest of my apps, so scan the code there instead.</p>
+  <p>If you already have this repository in F-Droid, add Brad White's apps too and you'll get Paigr's updates from there. This one stays up for phones that have it and still serves Relay 0.6 and Texts 0.3, but it won't get any new versions.</p>
+  <p class="note">Both apps are open source now, at <a href="https://github.com/Bradleyw801/paigr">github.com/Bradleyw801/paigr</a>.</p>
 </main>
-<script>
-  fetch('repo/index-v2.json').then(r => r.json()).then(d => {
-    document.querySelectorAll('.app[data-pkg]').forEach(el => {
-      const p = d.packages[el.dataset.pkg];
-      if (!p) { el.querySelector('.v').textContent = ' (coming soon)'; return; }
-      const v = Object.values(p.versions)[0].manifest.versionName;
-      el.querySelector('.v').textContent = ' ' + v;
-    });
-  }).catch(() => {});
-</script>
 </body>
 </html>

@@ -7,10 +7,9 @@
 repo_url: https://bradleyw801.github.io/text-relay/repo
 repo_name: Text Relay by Brad White
 repo_description: >-
-  Relay and Texts, the two apps of Text Relay. Relay runs on the phone that keeps the SIM
-  and Google Messages and forwards every text, RCS included; Texts reads and answers them
-  on the phone you carry, with or without Google services. Add this repository to F-Droid
-  (or any F-Droid client) and the apps install and update from here.
+  Relay and Texts are now called Paigr Relay and Paigr, and new versions are in
+  Brad White's apps at https://bradleyw801.github.io/sidephone-apps/. This repository
+  stays up for phones that already have it, but it gets no new builds.
 repo_icon: icon.png
 
 # No archive repo: the newest version of each app is what gets served.

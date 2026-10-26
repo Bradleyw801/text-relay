@@ -4,30 +4,20 @@ License: Proprietary
 AuthorName: Brad White
 WebSite: https://bradleyw801.github.io/text-relay/
 Name: Texts
-Summary: Read and answer your texts, RCS included, on a phone without Google services
+Summary: Old version of Paigr. New versions are in Brad White's apps
 Description: |
-  Texts is the inbox half of Text Relay. It runs on the phone you carry, which
-  can be any Android phone, including one with no Google services at all. Every
-  conversation the relay phone receives shows up here, group chats and
-  full-size pictures included, and your replies go out from the relay phone's
-  number.
+  Texts is now called Paigr, and new versions are published in Brad White's
+  apps. Add that repository to keep getting updates. This one stays at Texts
+  0.3. https://bradleyw801.github.io/sidephone-apps/
 
-  * Laid out like Google Messages: conversations, search, threads with search
-    inside them, and each conversation's photos, files and links
-  * A notification for each conversation as texts arrive, with no Google
-    services, push app or browser needed, or a quiet option with no sound or
-    pop-up
-  * New texts arrive within seconds over a light connection to the inbox,
-    with a check once a minute as a backup
-  * Warns you only when the relay phone has actually lost its connection, with
-    a Reconnect button that asks it to come back
-  * Resync reloads every conversation and asks the relay phone to send what it
-    still has
-  * Follows the system's light or dark theme
+  Texts is where you read and answer the texts Relay sends from the phone
+  with your SIM. It works on any Android phone, even one with no Google
+  services, and your replies go out from the relay phone's number. You get a
+  notification for each conversation as texts come in.
 
-  Install Relay on the phone that keeps the SIM, then pair Texts with a
-  one-time code from it: scan the QR code with this phone's camera, or type
-  the code.
+  Install Relay on the phone with your SIM first, then pair Texts with a
+  one-time code from it, either by scanning the QR code with this phone's
+  camera or typing the code.
 
 RequiresRoot: false
 
